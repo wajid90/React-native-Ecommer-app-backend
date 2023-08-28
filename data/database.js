@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 export const connectDB = async () => {
   try {
-    const { connection } = await mongoose.connect(process.env.MONGO_URI, {
+    const { connection } = await mongoose.connect(`mongodb+srv://root:Ts6iIpsxnrrLwh3D@cluster0.fqtpa.mongodb.net/`, {
       dbName: "UdemyCourse",
     });
 
