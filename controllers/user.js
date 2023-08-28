@@ -33,19 +33,34 @@ export const signup = asyncError(async (req, res, next) => {
 
   let user = await User.findOne({ email });
 
-  if (user) return next(new ErrorHandler("User Already Exist", 400));
+  
+
+  if (user!==null) return next(new ErrorHandler("User Already Exist", 400));
 
   let avatar = undefined;
 
   if (req.file) {
     const file = getDataUri(req.file);
+  
     const myCloud = await cloudinary.v2.uploader.upload(file.content);
+    console.log(myCloud);
     avatar = {
       public_id: myCloud.public_id,
       url: myCloud.secure_url,
     };
   }
 
+
+  // console.log({
+  //   avatar,
+  //   name,
+  //   email,
+  //   password,
+  //   address,
+  //   city,
+  //   country,
+  //   pinCode,
+  // });
   user = await User.create({
     avatar,
     name,
@@ -56,6 +71,7 @@ export const signup = asyncError(async (req, res, next) => {
     country,
     pinCode,
   });
+  
 
   sendToken(user, res, `Registered Successfully`, 201);
 });
