@@ -8,14 +8,16 @@ import { Category } from "../models/category.js";
 export const getAllProducts = asyncError(async (req, res, next) => {
   const { keyword, category } = req.query;
 
-  const products = await Product.find({
-    name: {
-      $regex: keyword ? keyword : "",
-      $options: "i",
-    },
-    category: category ? category : undefined,
-  });
+  let products;
 
+
+  let search =keyword  || "";
+  let categoryData=category || ""; 
+
+  products = await Product.find({name: { $regex: search,$options: "i"}});
+  if(category){
+   products = await Product.find({category:categoryData});
+  }
   res.status(200).json({
     success: true,
     products,
