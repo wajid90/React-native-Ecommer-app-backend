@@ -17,9 +17,12 @@ const schema = new mongoose.Schema({
     type: Number,
     required: [true, "Please Enter Stock"],
   },
-
+  feature:{
+    type: String,
+    required: [true, "Please Enter Featured"],
+  },
   images: [{ public_id: String, url: String }],
-
+  
   category: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Category",

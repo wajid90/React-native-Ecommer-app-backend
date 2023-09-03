@@ -48,7 +48,7 @@ export const getProductDetails = asyncError(async (req, res, next) => {
 });
 
 export const createProduct = asyncError(async (req, res, next) => {
-  const { name, description, category, price, stock } = req.body;
+  const { name, description, category, price, stock,feature } = req.body;
 
   if (!req.file) return next(new ErrorHandler("Please add image", 400));
 
@@ -66,6 +66,7 @@ export const createProduct = asyncError(async (req, res, next) => {
     price,
     stock,
     images: [image],
+    feature:feature
   });
 
   res.status(200).json({
